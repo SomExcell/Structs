@@ -1,3 +1,0 @@
-﻿  main.cpp
-C:\Users\SomExcell\source\repos\String\main.cpp(12,30): warning C4018: '<': signed/unsigned mismatch
-  String.vcxproj -> C:\Users\SomExcell\source\repos\String\Debug\String.exe
