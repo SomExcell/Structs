@@ -8,4 +8,4 @@ set(SOURCES source/main.cpp source/String.cpp)
 
 set(HEADERS header/String.h)
 
-add_executable(LIST ${SOURCES} ${HEADERS})
+add_executable(String ${SOURCES} ${HEADERS})
