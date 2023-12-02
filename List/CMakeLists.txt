@@ -6,6 +6,6 @@ include_directories("header/")
 
 set(SOURCES source/main.cpp)
 
-set(HEADERS header/list.h)
+set(HEADERS header/list.hpp)
 
 add_executable(LIST ${SOURCES} ${HEADERS})
