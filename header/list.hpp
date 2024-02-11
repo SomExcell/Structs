@@ -62,7 +62,7 @@ List<T>::List(const List& list)
 	first = nullptr;
 	last = nullptr;
 	size_ = 0;
-	Node<T>* node = l.first;
+	Node<T>* node = list.first;
 	while (node)
 	{
 		push_back(node->value());
