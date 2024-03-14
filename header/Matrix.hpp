@@ -1,4 +1,6 @@
-#pragma once
+#ifndef MATRIX_HPP_
+#define MATRIX_HPP_
+
 #include <iostream>
 
 template <typename T>class Matrix
@@ -200,3 +202,5 @@ std::ostream& operator<<(std::ostream& out, Matrix<T>& matrix)
 	}
 	return out;
 }
+
+#endif

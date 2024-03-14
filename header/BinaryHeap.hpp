@@ -1,34 +1,78 @@
-#include "BinaryHeap.h"
+#ifndef BINARYHEAP_HPP_
+#define BINARYHEAP_HPP_
 
-BinaryHeap::BinaryHeap(const BinaryHeap& rhs):values(rhs.values){}
+#include <iostream>
+#include <vector>
 
-BinaryHeap::BinaryHeap(BinaryHeap&& rhs)
+template <typename T>
+struct BinaryHeap
+{
+public:
+    BinaryHeap(){}
+    BinaryHeap(const BinaryHeap& rhs);
+    BinaryHeap(BinaryHeap&& rhs);
+    BinaryHeap& operator=(const BinaryHeap& rhs);
+    BinaryHeap& operator=(BinaryHeap&& rhs);
+public:
+	void push(const T &value);
+	void pop();
+	T top();
+	void reverse();
+
+private:
+	void trickleUp(const int &currentIndex);
+	void trickleDown(const int &currentIndex);
+
+	void trickleUpReversed(const int &currentIndex);
+	void trickleDownReversed(const int &currentIndex);
+
+	int parentIndex(const int &index);
+	int leftChildIndex(const int &index);
+    int rightChildIndex(const int &index);
+
+	int graterChild(const int &leftIndex,const int &rightIndex);
+	int leastChild(const int &leftIndex, const int &rightIndex);
+
+private:
+	std::vector<T> values;
+	bool reversed = false;
+};
+
+template<typename T>
+BinaryHeap<T>::BinaryHeap(const BinaryHeap& rhs):values(rhs.values){}
+
+template<typename T>
+BinaryHeap<T>::BinaryHeap(BinaryHeap&& rhs)
 {
     values = std::move(rhs.values);
 }
 
-BinaryHeap& BinaryHeap::operator=(const BinaryHeap& rhs)
+template<typename T>
+BinaryHeap<T>& BinaryHeap<T>::operator=(const BinaryHeap& rhs)
 {
     if(this == &rhs){return *this;}
     values = rhs.values;
     return *this;
 }
 
-BinaryHeap& BinaryHeap::operator=(BinaryHeap&& rhs)
+template<typename T>
+BinaryHeap<T>& BinaryHeap<T>::operator=(BinaryHeap&& rhs)
 {
     if(this == &rhs){return *this;}
     values = std::move(rhs.values);
     return *this;
 }
 
-void BinaryHeap::push(const int &value)
+template<typename T>
+void BinaryHeap<T>::push(const T &value)
 {
     values.push_back(value);
     if(reversed){trickleUpReversed(values.size()-1);}
     else{trickleUp(values.size()-1);}
 }
 
-void BinaryHeap::pop()
+template<typename T>
+void BinaryHeap<T>::pop()
 {
     std::swap(values[0],values[values.size()-1]);
     values.pop_back();
@@ -36,15 +80,17 @@ void BinaryHeap::pop()
     else{trickleDown(0);}
 }
 
-int BinaryHeap::top()
+template<typename T>
+T BinaryHeap<T>::top()
 {
     return values[0];
 }
 
-void BinaryHeap::reverse()
+template<typename T>
+void BinaryHeap<T>::reverse()
 {
     reversed ? reversed = false : reversed = true;
-    std::vector<int> vec(values);
+    std::vector<T> vec(values);
     values.clear();
     for (size_t i = 0; i < vec.size(); i++)
     {
@@ -52,7 +98,8 @@ void BinaryHeap::reverse()
     }
 }
 
-void BinaryHeap::trickleUp(const int &currentIndex)
+template<typename T>
+void BinaryHeap<T>::trickleUp(const int &currentIndex)
 {
     int pIndex = parentIndex(currentIndex);
     if(pIndex == currentIndex || values[pIndex] >= values[currentIndex]){return;}
@@ -60,7 +107,8 @@ void BinaryHeap::trickleUp(const int &currentIndex)
     trickleUp(pIndex);
 }
 
-void BinaryHeap::trickleDown(const int &currentIndex)
+template<typename T>
+void BinaryHeap<T>::trickleDown(const int &currentIndex)
 {
     int greatChildIndex = graterChild(leftChildIndex(currentIndex),rightChildIndex(currentIndex));
     if(greatChildIndex == -1){return;}
@@ -69,7 +117,8 @@ void BinaryHeap::trickleDown(const int &currentIndex)
     trickleDown(greatChildIndex);
 }
 
-void BinaryHeap::trickleUpReversed(const int &currentIndex)
+template<typename T>
+void BinaryHeap<T>::trickleUpReversed(const int &currentIndex)
 {
     int pIndex = parentIndex(currentIndex);
     if(pIndex == currentIndex || values[pIndex] <= values[currentIndex]){return;}
@@ -77,7 +126,8 @@ void BinaryHeap::trickleUpReversed(const int &currentIndex)
     trickleUpReversed(pIndex);
 }
 
-void BinaryHeap::trickleDownReversed(const int &currentIndex)
+template<typename T>
+void BinaryHeap<T>::trickleDownReversed(const int &currentIndex)
 {
     int leastChildIndex = leastChild(leftChildIndex(currentIndex),rightChildIndex(currentIndex));
     if(leastChildIndex == -1){return;}
@@ -86,26 +136,30 @@ void BinaryHeap::trickleDownReversed(const int &currentIndex)
     trickleDownReversed(leastChildIndex);
 }
 
-int BinaryHeap::parentIndex(const int &index)
+template<typename T>
+int BinaryHeap<T>::parentIndex(const int &index)
 {
     return (index-1)/2;
 }
 
-int BinaryHeap::leftChildIndex(const int &index)
+template<typename T>
+int BinaryHeap<T>::leftChildIndex(const int &index)
 {
     int indexChild = index*2+1;
     if(indexChild >= values.size()){return -1;}
     return indexChild;
 }
 
-int BinaryHeap::rightChildIndex(const int &index)
+template<typename T>
+int BinaryHeap<T>::rightChildIndex(const int &index)
 {
     int indexChild = index*2+2;
     if(indexChild >= values.size()){return -1;}
     return indexChild;
 }
 
-int BinaryHeap::graterChild(const int &leftIndex,const int &rightIndex)
+template<typename T>
+int BinaryHeap<T>::graterChild(const int &leftIndex,const int &rightIndex)
 {
     if(leftIndex == -1 && rightIndex == -1){return -1;}
     else if(leftIndex == -1){return rightIndex;}
@@ -114,7 +168,8 @@ int BinaryHeap::graterChild(const int &leftIndex,const int &rightIndex)
     else{return leftIndex;}
 }
 
-int BinaryHeap::leastChild(const int &leftIndex, const int &rightIndex)
+template<typename T>
+int BinaryHeap<T>::leastChild(const int &leftIndex, const int &rightIndex)
 {
     if(leftIndex == -1 && rightIndex == -1){return -1;}
     else if(leftIndex == -1){return rightIndex;}
@@ -122,3 +177,6 @@ int BinaryHeap::leastChild(const int &leftIndex, const int &rightIndex)
     else if(values[rightIndex] < values[leftIndex]){return rightIndex;}
     else{return leftIndex;}
 }
+
+
+#endif

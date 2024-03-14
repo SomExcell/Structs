@@ -1,4 +1,5 @@
-#pragma once
+#ifndef BINARYTREE_HPP_
+#define BYNARYTREE_HPP_
 
 template<typename T> class BinaryTree;
 
@@ -27,3 +28,5 @@ public:
     BinaryTree& operator=(const BinaryTree& rhs);
     BinaryTree& operator=(BinaryTree&& rhs);
 };
+
+#endif

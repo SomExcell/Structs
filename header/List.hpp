@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LIST_HPP_
+#define LIST_HPP_
 
 template <class T> class List;
 
@@ -138,3 +139,5 @@ T List<T>::back()
 {
 	return last->value();
 }
+
+#endif
