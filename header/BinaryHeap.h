@@ -15,19 +15,26 @@ public:
 public:
 	void push(const int &value);
 	void pop();
-	int max();
+	int top();
+	void reverse();
 
 private:
 	void trickleUp(const int &currentIndex);
 	void trickleDown(const int &currentIndex);
 
+	void trickleUpReversed(const int &currentIndex);
+	void trickleDownReversed(const int &currentIndex);
+
 	int parentIndex(const int &index);
 	int leftChildIndex(const int &index);
     int rightChildIndex(const int &index);
-	int graterChildIndex(const int &leftIndex,const int &rightIndex);
+
+	int graterChild(const int &leftIndex,const int &rightIndex);
+	int leastChild(const int &leftIndex, const int &rightIndex);
 
 private:
 	std::vector<int> values;
+	bool reversed = false;
 };
 
 #endif
