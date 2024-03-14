@@ -1,6 +1,7 @@
-#pragma once
-#include <iostream>
+#ifndef STRING_H_
+#define STRING_H_
 
+#include <iostream>
 class String
 {
 	friend std::istream& operator>>(std::istream& in, String& s);
@@ -27,3 +28,5 @@ private:
 	char* str = nullptr;
 };
 std::ostream& operator<<(std::ostream& out, const String& str);
+
+#endif

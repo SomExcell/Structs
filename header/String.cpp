@@ -1,4 +1,4 @@
-#include <iostream>
+
 #include "String.h"
 
 String::String(const char* rhs)

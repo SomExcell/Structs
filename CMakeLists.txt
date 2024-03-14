@@ -10,6 +10,8 @@ set(HEADERS header/String.h
 		header/String.cpp
 		header/list.hpp 
 		header/matrix.hpp
+		header/BinaryHeap.h
+		header/BinaryHeap.cpp
 		header/binaryTree.hpp)
 
 add_executable(Structs ${SOURCES} ${HEADERS})
