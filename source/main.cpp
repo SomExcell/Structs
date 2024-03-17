@@ -1,29 +1,29 @@
 #include "String.h"
 #include "Matrix.hpp"
-#include "BinaryTree.hpp"
+#include "BinarySearchTree.hpp"
 #include "BinaryHeap.hpp"
 
 #include <iostream>
 #include <vector>
+#include <set>
 
 
 int main()
 {
-    BinaryHeap<std::string> heap{};
-    int count;
+    BinarySearchTree<int> tree{};
+    int count,value;
     std::cin >> count;
-    std::string value;
     for (size_t i = 0; i < count; i++)
     {
         std::cin >> value;
-        heap.push(value);
+        tree.insert(value);
     }
-    heap.reverse();
     for (size_t i = 0; i < count; i++)
     {
-        std::cout << heap.top() << ' ';
-        heap.pop();
+        std::cin >> value;
+        tree.erase(value);
     }
+    
     
     
 }

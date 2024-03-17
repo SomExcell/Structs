@@ -22,25 +22,20 @@ class List
 {
 public:
 	List();
-
 	List(const List& list);
 
 	void push_back(const T& value);
-
 	void push_front(const T& value);
 
 	int size();
-
 	void print();
 
 	void pop_front();
-
 	void pop_back();
 
 	bool empty();
 
 	T front();
-
 	T back();
 
 private:
