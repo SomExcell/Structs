@@ -1,29 +1,27 @@
-#include "String.h"
-#include "Matrix.hpp"
-#include "BinarySearchTree.hpp"
-#include "BinaryHeap.hpp"
-
 #include <iostream>
 #include <vector>
-#include <set>
-
+#include <cstring>
+#include <algorithm>
+#include "String.h"
 
 int main()
 {
-    BinarySearchTree<int> tree{};
-    int count,value;
-    std::cin >> count;
-    for (size_t i = 0; i < count; i++)
+    std::string a = "asdsssssssssssssssssss";
+    a+='s';
+    a.resize(46);
+    a.reserve(100);
+    int x = a.capacity();
+
+    size_t countWords;
+    std::cin >> countWords;
+    std::vector<String> vec(countWords);
+    for (size_t i = 0; i < countWords; i++)
     {
-        std::cin >> value;
-        tree.insert(value);
-    }
-    for (size_t i = 0; i < count; i++)
-    {
-        std::cin >> value;
-        tree.erase(value);
+        std::cin >> vec[i];
     }
     
     
     
+
+    return 0;
 }
