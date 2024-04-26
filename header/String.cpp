@@ -2,12 +2,12 @@
 
 String::String(const char* __str)
 {
-	copyFrom(__str, strlen(__str));
+	append(__str, strlen(__str));
 }
 
 String::String(const String& __str)
 {
-	copyFrom(__str.str_,__str.size_);
+	append(__str.str_,__str.size_);
 }
 
 String::String(String&& __str)
@@ -36,7 +36,7 @@ String& String::operator=(const char *__s)
 	char* __sCopy = new char[__sSize+1]{'\0'};
 	strcpy(__sCopy,__s);
 	clear();
-	copyFrom(__sCopy,__sSize);
+	append(__sCopy,__sSize);
 	delete[] __sCopy;
 	return *this;
 }
@@ -61,7 +61,7 @@ String& String::operator+=(const char &__c)
 {
 	char* source = new char[2];
 	source[0] = __c; source[1] = '\0';
-	copyFrom(source,1);
+	append(source,1);
 	delete[]source;
 	return *this;
 }
@@ -71,7 +71,7 @@ String& String::operator+=(const char *__s)
 	size_t __sSize = strlen(__s);
 	char* __sCopy = new char[__sSize+1]{'\0'};
 	strcpy(__sCopy,__s);
-	copyFrom(__sCopy,__sSize);
+	append(__sCopy,__sSize);
 	delete[] __sCopy;
 	return *this;
 }
@@ -264,7 +264,7 @@ char *String::strcpy(char* destination, const char* source)
 	return destination;
 }
 
-void String::copyFrom(const char* source,const size_t &sourceSize)
+void String::append(const char* source,const size_t &sourceSize)
 {
 	size_t newSize = size_ + sourceSize;
 	if(capacity_ < newSize){newCapacity(newSize);}

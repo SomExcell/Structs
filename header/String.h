@@ -59,15 +59,13 @@ private:
 	size_t strlen(const char* str);
 
 	char *strcpy(char* destination, const char* source);
-
-	void copyFrom(const char* source,const size_t &sourceSize);
+	void append(const char* source,const size_t &sourceSize);
 	void swap(String& lhs,String& rhs);
 
 private:
 	const size_t MAX_CAPACITY = UINT32_MAX;
-	const size_t DEFAULT_CAPACITY = 15;
 
-	size_t capacity_ = DEFAULT_CAPACITY;
+	size_t capacity_ = 15;
 	size_t size_ = 0;
 	char* str_ = new char[16]{'\0'};
 };

@@ -4,15 +4,23 @@
 #include <vector>
 #include <algorithm>
 
-bool lexicographicWithoutRegistr(String &first, String& second)
+bool comparator(String &first, String& second)
 {
     for (size_t i = 0; i < std::min(first.size(),second.size()); ++i)
     {
-        if(std::tolower(first[i]) > std::tolower(second[i])){return false;}
-        else if(std::tolower(first[i]) < std::tolower(second[i])){return true;}
+        if(std::tolower(first[i]) < std::tolower(second[i])){return false;}
+        else if(std::tolower(first[i]) > std::tolower(second[i])){return true;}
     }
-    if(first.size() > second.size()){return false;}
+    if(first.size() < second.size()){return false;}
     return true;
+}
+
+void print(const std::vector<String> &vec)
+{
+    for (size_t i = 0; i < vec.size(); i++)
+    {
+        std::cout << vec[i] << '\n';
+    }
 }
 
 int main()
@@ -24,8 +32,7 @@ int main()
     {
         std::cin >> vec[i];
     }
-    sort(vec.begin(),vec.end(),lexicographicWithoutRegistr);
-    reverse(vec.begin(),vec.end());
-
+    sort(vec.begin(),vec.end(),comparator);
+    print(vec);
     return 0;
 }
