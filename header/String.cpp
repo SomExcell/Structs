@@ -26,18 +26,17 @@ String& String::operator=(const String& __str)
 {
 	if (this == &__str)
 		return *this;
-	operator=(__str.str_);
+	size_ = 0;
+	append(__str.str_,__str.size_);
 	return *this;
 }
 
 String& String::operator=(const char *__s)
 {
-	size_t __sSize = strlen(__s);
-	char* __sCopy = new char[__sSize+1]{'\0'};
-	strcpy(__sCopy,__s);
-	clear();
-	append(__sCopy,__sSize);
-	delete[] __sCopy;
+	if(str_ == __s)
+		return *this;
+	size_ = 0;
+	append(__s,strlen(__s));
 	return *this;
 }
 
@@ -53,7 +52,7 @@ String& String::operator=(String&& __str)
 
 String& String::operator+=(const String& __str)
 {
-	operator+=(__str.str_);
+	append(__str.str_,__str.size_);
 	return *this;
 }
 
@@ -68,11 +67,7 @@ String& String::operator+=(const char &__c)
 
 String& String::operator+=(const char *__s)
 {
-	size_t __sSize = strlen(__s);
-	char* __sCopy = new char[__sSize+1]{'\0'};
-	strcpy(__sCopy,__s);
-	append(__sCopy,__sSize);
-	delete[] __sCopy;
+	append(__s,strlen(__s));
 	return *this;
 }
 
@@ -236,12 +231,6 @@ size_t String::newCapacity(const size_t &size)
 	while(newCap <= size && newCap <= MAX_CAPACITY){newCap*=2;}
 	if(newCap > MAX_CAPACITY){newCap = MAX_CAPACITY;}
 	capacity_ = newCap;
-	
-	char *newStr_ = new char[capacity_ + 1]{'\0'};
-	strcpy(newStr_,str_);
-	delete []str_;
-	str_ = newStr_;
-
 	return newCap;
 }
 
@@ -267,9 +256,19 @@ char *String::strcpy(char* destination, const char* source)
 void String::append(const char* source,const size_t &sourceSize)
 {
 	size_t newSize = size_ + sourceSize;
-	if(capacity_ < newSize){newCapacity(newSize);}
-
-	strcpy(str_ + size_,source);
+	if(capacity_ < newSize)
+	{
+		newCapacity(newSize);
+		char *newStr = new char[capacity_ + 1];
+		strcpy(newStr,str_);
+		strcpy(newStr + size_,source);
+		delete [] str_;
+		str_ = newStr;
+	}
+	else
+	{
+		strcpy(str_ + size_,source);
+	}
 	size_ = newSize;
 }
 
